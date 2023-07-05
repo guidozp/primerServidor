@@ -17,30 +17,31 @@ router.get('/api/users', async (req: Request, res: Response) => {
 });
 
 // Obtener un usuario por su ID
-router.get('/api/users/:id', (req: Request, res: Response) => {
-
+router.get('/api/users/:id', async (req: Request, res: Response) => {
+  const ide = req.params.id
+  const userId = await userRepository.findOneBy({id:parseInt(ide)})
+  res.json(userId)
+  
 });
 
 // Crear un nuevo usuario
 router.post('/api/users', async (req: Request, res: Response) => {
 
   const {
-    id,
     firstName,
     lastName,
-    age,
-    email
+    cpf,
+    address
   } = req.body
   const newUser = await AppDataSource
                         .createQueryBuilder()
                         .insert()
                         .into(User)
                         .values({
-                          id,
                           firstName,
                           lastName,
-                          age,
-                          email,
+                          cpf,
+                          address,
                         }).execute()
 console.log(newUser)
   res.status(201).json(newUser);

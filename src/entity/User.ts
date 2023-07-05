@@ -1,3 +1,4 @@
+import { json } from "stream/consumers"
 import { Entity, PrimaryGeneratedColumn, Column } from "typeorm"
 
 @Entity()
@@ -6,15 +7,20 @@ export class User {
     @PrimaryGeneratedColumn()
     id: number
 
-    @Column()
+    @Column({nullable: false})
     firstName: string
 
-    @Column()
+    @Column({nullable: false})
     lastName: string
 
-    @Column()
-    age: number
+    @Column({nullable: false})
+    cpf: string
 
-    @Column()
-    email: string
+    @Column('json')
+  address: {
+    city: string;
+    street: string;
+    number: number;
+    cep: number;
+  };
 }
