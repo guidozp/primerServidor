@@ -21,6 +21,6 @@ export class User {
     city: string;
     street: string;
     number: number;
-    cep: number;
+    cep: string;
   };
 }
