@@ -1,9 +1,7 @@
 import { json } from "stream/consumers"
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn, ManyToOne } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne, OneToMany, JoinColumn, ManyToOne } from "typeorm"
 import { User } from "./User"
 import { Item } from "./Item"
-
-
 
 @Entity()
 export class Receipt {
@@ -15,10 +13,8 @@ export class Receipt {
     @JoinColumn()
     userId: User
 
-
-    @ManyToOne(() =>Item, (item) => item.receipt)
-    items: Item[]
-
+  @OneToMany(() => Item, item => item.id)
+  items: { itemId: number, quantity: number }[];
 
     @Column({nullable: false})
     total: number

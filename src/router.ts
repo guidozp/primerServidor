@@ -1,6 +1,7 @@
-import express, { Request, Response, response } from 'express';
+import express, { Request, Response} from 'express';
 import { AppDataSource } from "./data-source"
 import {User} from './entity/User'
+import { Item } from './entity/Item';
 
 const userRepository = AppDataSource.getRepository(User)
 
@@ -64,5 +65,23 @@ router.delete('/api/users/:id', async (req: Request, res: Response) => {
   res.send("Usuario Eliminado")
 
 });
+//crear nuevo item 
+router.post('/api/items', async (req: Request, res: Response) => {
+
+  const {
+    name,
+    price,
+  } = req.body
+  const newItem = await AppDataSource
+                        .createQueryBuilder()
+                        .insert()
+                        .into(Item)
+                        .values([{
+                          name,
+                          price
+                        }]).execute()
+console.log(newItem)
+  res.status(201).json(newItem);
+})
 
 export default router;
