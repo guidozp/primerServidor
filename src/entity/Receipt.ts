@@ -9,12 +9,15 @@ export class Receipt {
     @PrimaryGeneratedColumn()
     id: number
 
-    @OneToOne(() => User)
-    @JoinColumn()
-    userId: User
+    @Column()
+    userId: number;
 
-  @OneToMany(() => Item, item => item.id)
-  items: { itemId: number, quantity: number }[];
+    @OneToOne(() => User)
+    @JoinColumn({ name: 'userId' })
+    user: User;
+
+    @OneToMany(() => Item, item => item.id)
+    items: { itemId: number, quantity: number }[];
 
     @Column({nullable: false})
     total: number

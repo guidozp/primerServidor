@@ -11,6 +11,4 @@ export class Item {
 
     @Column({nullable: false})
     price: number
-
-   
 }
